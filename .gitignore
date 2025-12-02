@@ -1,0 +1,19 @@
+# ROS 2 / Colcon build artifacts
+build/
+install/
+log/
+
+# You can also ignore the classic ROS 1 artifact if it ever appears
+devel/
+
+# Python cache
+**/__pycache__/
+
+# Colcon metadata
+.colcon/
+
+# VSCode
+.vscode/
+
+# Editor backups
+*~

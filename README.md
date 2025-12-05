@@ -15,3 +15,5 @@ colcon build
 . install/setup.bash
 
 ros2 launch iasys_scenarios scenario_roadblock_vehicle.launch.py 
+
+ros2 launch iasys_scenarios spawn_prius.py

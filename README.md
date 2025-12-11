@@ -17,3 +17,7 @@ colcon build
 ros2 launch iasys_scenarios scenario_roadblock_vehicle.launch.py 
 
 ros2 launch iasys_scenarios spawn_prius.py
+
+
+# Make Prius Move
+ros2 topic pub /cmd_vel geometry_msgs/msg/Twist '{ "linear": { "x": 1.0,"y": 0.0, "z": 0.0 }, "angular": { "x": 0.0, "y": 0.0, "z": 0.0 } }'

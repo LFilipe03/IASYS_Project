@@ -30,9 +30,11 @@ def generate_launch_description():
             cmd=['ros2', 'run', 'gazebo_ros', 'spawn_entity.py',
                     '-file', prius_path,
                     '-entity', 'prius',
-                    '-x', '0',
-                    '-y', '-5',
-                    '-z', '0'],
+                    '-robot_namespace', 'prius',
+                    '-x', '240',
+                    '-y', '7.5',
+                    '-z', '0',
+                    '-Y', '3.1416'],
                     output='screen'
         ),
         

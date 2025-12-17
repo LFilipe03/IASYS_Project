@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-                'camera_sensor = computer_vision.camera_sensor:main'
+                'camera_sensor = computer_vision.camera_sensor:main',
+                'yolo_node = computer_vision.yolo_node:main'
         ],
     },
 )

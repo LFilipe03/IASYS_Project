@@ -1,0 +1,14 @@
+#!/bin/bash
+# Script to set up ROS 2 environment and run YOLO node
+
+# Source ROS 2 Foxy setup
+source /opt/ros/foxy/setup.bash
+
+# Navigate to project directory
+cd IASYS_Project/ || { echo "Directory IASYS_Project not found"; exit 1; }
+
+# Source project setup
+. install/setup.bash
+
+# Run YOLO node from computer_vision package
+ros2 run computer_vision yolo_node

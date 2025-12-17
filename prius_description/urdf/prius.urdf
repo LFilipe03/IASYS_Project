@@ -37,20 +37,20 @@
     <child link="base_link"/>
   </joint>-->
   
-  <link name="$(arg namespace)base_link">
+  <link name="base_link">
     <inertial>
       <mass value="1" />
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
     </inertial>
   </link>
   <joint name="base_link_connection" type="fixed">
-    <parent link="$(arg namespace)base_link" />
-    <child link="$(arg namespace)chassis" />
+    <parent link="base_link" />
+    <child link="chassis" />
     <origin xyz="1.45 0 0" rpy="0 0 1.57" />
     <axis xyz="1 0 0" />
   </joint>
 
-  <link name="$(arg namespace)chassis">
+  <link name="chassis">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
@@ -127,21 +127,21 @@
       <inertia ixx="2581.13354740" ixy="0.0" ixz="0.0" iyy="591.30846112" iyz="0.0" izz="2681.95008628" />
     </inertial>
   </link>
-  <link name="$(arg namespace)fl_axle">
+  <link name="fl_axle">
     <inertial>
       <mass value="1" />
       <origin xyz="0 0 0" />
       <inertia ixx="0.004" ixy="0.0" ixz="0.0" iyy="0.004" iyz="0.0" izz="0.004" />
     </inertial>
   </link>
-  <link name="$(arg namespace)fr_axle">
+  <link name="fr_axle">
     <inertial>
       <mass value="1" />
       <origin xyz="0 0 0" />
       <inertia ixx="0.004" ixy="0.0" ixz="0.0" iyy="0.004" iyz="0.0" izz="0.004" />
     </inertial>
   </link>
-  <link name="$(arg namespace)front_left_wheel">
+  <link name="front_left_wheel">
     <inertial>
       <mass value="11" />
       <origin xyz="0 0 0" />
@@ -159,7 +159,7 @@
       </geometry>
     </visual>
   </link>
-  <link name="$(arg namespace)front_right_wheel">
+  <link name="front_right_wheel">
     <inertial>
       <mass value="11" />
       <origin xyz="0 0 0" />
@@ -177,7 +177,7 @@
       </geometry>
     </visual>
   </link>
-  <link name="$(arg namespace)rear_left_wheel">
+  <link name="rear_left_wheel">
     <inertial>
       <mass value="11" />
       <origin xyz="0 0 0" />
@@ -195,7 +195,7 @@
       </geometry>
     </visual>
   </link>
-  <link name="$(arg namespace)rear_right_wheel">
+  <link name="rear_right_wheel">
     <inertial>
       <mass value="11" />
       <origin xyz="0 0 0" />
@@ -213,7 +213,7 @@
       </geometry>
     </visual>
   </link>
-  <link name="$(arg namespace)steering_wheel">
+  <link name="steering_wheel">
     <inertial>
       <mass value="1.0" />
       <inertia ixx="0.14583300" ixy="0.0" ixz="0.0" iyy="0.14583300" iyz="0.0" izz="0.125" />
@@ -228,47 +228,47 @@
 
   <joint name="steering_joint" type="continuous">
     <origin xyz="0.357734 -0.627868 0.988243" rpy="-1.302101 0 0" />
-    <parent link="$(arg namespace)chassis" />
-    <child link="$(arg namespace)steering_wheel" />
+    <parent link="chassis" />
+    <child link="steering_wheel" />
     <axis xyz="0 0 1" />
     <limit lower="-7.85" upper="7.85" effort="10000000" velocity="1000000" />
   </joint>
 
   <joint name="front_left_steer_joint" type="continuous">
-    <parent link="$(arg namespace)chassis" />
-    <child link="$(arg namespace)fl_axle" />
+    <parent link="chassis" />
+    <child link="fl_axle" />
     <origin xyz="0.767 -1.41 0.3" rpy="0 0 0" />
     <axis xyz="0 0 1" />
     <limit lower="-0.8727" upper="0.8727" effort="10000000" velocity="1000000" />
   </joint>
   <joint name="front_right_steer_joint" type="continuous">
-    <parent link="$(arg namespace)chassis" />
-    <child link="$(arg namespace)fr_axle" />
+    <parent link="chassis" />
+    <child link="fr_axle" />
     <origin xyz="-0.767 -1.41 0.3" rpy="0 0 0" />
     <axis xyz="0 0 1" />
     <limit lower="-0.8727" upper="0.8727" effort="10000000" velocity="1000000" />
   </joint>
   <joint name="front_left_wheel_joint" type="continuous">
-    <parent link="$(arg namespace)fl_axle" />
-    <child link="$(arg namespace)front_left_wheel" />
+    <parent link="fl_axle" />
+    <child link="front_left_wheel" />
     <origin xyz="0 0 0" rpy="0 0 0" />
     <axis xyz="1 0 0" />
   </joint>
   <joint name="front_right_wheel_joint" type="continuous">
-    <parent link="$(arg namespace)fr_axle" />
-    <child link="$(arg namespace)front_right_wheel" />
+    <parent link="fr_axle" />
+    <child link="front_right_wheel" />
     <origin xyz="0 0 0" rpy="0 0 0" />
     <axis xyz="1 0 0" />
   </joint>
   <joint name="rear_left_wheel_joint" type="continuous">
-    <parent link="$(arg namespace)chassis" />
-    <child link="$(arg namespace)rear_left_wheel" />
+    <parent link="chassis" />
+    <child link="rear_left_wheel" />
     <origin xyz="0.793 1.45 0.3" rpy="0 0 0" />
     <axis xyz="1 0 0" />
   </joint>
   <joint name="rear_right_wheel_joint" type="continuous">
-    <parent link="$(arg namespace)chassis" />
-    <child link="$(arg namespace)rear_right_wheel" />
+    <parent link="chassis" />
+    <child link="rear_right_wheel" />
     <origin xyz="-0.793 1.45 0.3" rpy="0 0 0" />
     <axis xyz="1 0 0" />
   </joint>
@@ -332,8 +332,8 @@
       <publish_odom_tf>true</publish_odom_tf>
       <publish_wheel_tf>false</publish_wheel_tf>
       <publish_distance>true</publish_distance>
-      <odometry_frame>$(arg namespace)odom</odometry_frame>
-      <robot_base_frame>$(arg namespace)base_link</robot_base_frame>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_link</robot_base_frame>
 
       <ros> 
         <argument>--ros-args --remap cmd_vel:=cmd_vel</argument>
@@ -345,7 +345,7 @@
     </plugin>
   </gazebo> 
 
-  <link name="$(arg namespace)center_laser_link">
+  <link name="center_laser_link">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="0.0"/>
@@ -353,14 +353,21 @@
     </inertial>
   </link>
     
-  <joint name="center_laser_joint" type="fixed">
-    <parent link="$(arg namespace)chassis"/>
-    <child link="$(arg namespace)center_laser_link"/>
-    <!-- <origin xyz="2.7 0 0.2" rpy="0 0 0"/> -->
+   <joint name="center_laser_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="center_laser_link"/>
     <origin xyz="0 -2.2 0.3" rpy="0 0 -1.5707"/>
   </joint>
     
-  <gazebo reference="$(arg namespace)center_laser_link">
+  <!--<joint name="center_laser_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="center_laser_link"/>
+    <origin xyz="3.55 0 0.3" rpy="0 0 0"/>
+    <axis xyz="1 0 0" />
+  </joint>-->
+
+
+  <gazebo reference="center_laser_link">
     <sensor name="center_laser_sensor" type="ray">
       <always_on>true</always_on>
       <visualize>true</visualize>
@@ -395,23 +402,23 @@
           <remapping>~/out:=base_scan</remapping>
         </ros>
         <output_type>sensor_msgs/LaserScan</output_type>
-        <frame_name>$(arg namespace)center_laser_link</frame_name>
+        <frame_name>center_laser_link</frame_name>
       </plugin>
     </sensor>
   </gazebo>
 
 
 <!-- IMU -->
-<link name="$(arg namespace)imu_link"/>
+<link name="imu_link"/>
 
   <joint name="imu_joint" type="fixed">
     <axis xyz="0 1 0" />
     <origin xyz="0 0 0.135" rpy="0 0 0"/>
-    <parent link="$(arg namespace)chassis"/>
-    <child link="$(arg namespace)imu_link"/>
+    <parent link="chassis"/>
+    <child link="imu_link"/>
 </joint>
 
-  <gazebo reference="$(arg namespace)imu_link">
+  <gazebo reference="imu_link">
     <sensor name="imu_sensor" type="imu">
       <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
         <ros>

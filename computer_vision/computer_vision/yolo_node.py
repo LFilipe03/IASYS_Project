@@ -40,7 +40,7 @@ class GesturePublisherNode(Node):
             Image,
             '/camera/image_raw',
             self.image_callback,
-            10
+            1
         )
 
         # Timer (Processing Loop)
@@ -70,7 +70,7 @@ class GesturePublisherNode(Node):
         frame = self.latest_frame.copy()
         
         # NOTE: If your camera is mirrored, keep this. If not, comment it out.
-        # frame = cv2.flip(frame, 1)
+        frame = cv2.flip(frame, 1)
 
         # 2. Run Inference
         # verbose=False prevents the terminal from spamming "Ultralytics..."

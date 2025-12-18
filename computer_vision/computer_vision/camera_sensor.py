@@ -21,7 +21,7 @@ class CameraSensor(Node):
 
         self.bridge = CvBridge()
 
-        self.timer = self.create_timer(0.1, self.timer_callback)
+        self.timer = self.create_timer(0.5, self.timer_callback)
 
     def timer_callback(self):
         ret, frame = self.cap.read()

@@ -10,10 +10,10 @@ slam_toolbox:
     ceres_loss_function: None
 
     # ROS Parameters
-    odom_frame: odom
+    odom_frame: prius/odom
     map_frame: map
-    base_frame: base_footprint
-    scan_topic: /scan
+    base_frame: prius/base_link
+    scan_topic: /prius/base_scan
     mode: mapping #localization
     debug_logging: false
     throttle_scans: 1

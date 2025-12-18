@@ -21,9 +21,17 @@ ros2 launch iasys_scenarios spawn_prius.py
 
 ## Mapping World with Prius
 
-ros2 launch slam_toolbox online_async_launch.py 
-
 ros2 run tf2_ros static_transform_publisher  0 0 0 0 0 0 prius/odom prius/base_link
+
+ros2 launch slam_toolbox online_async_launch.py use_sim_time:=True
+
+rviz2 -d nav2_bringup/bringup/rviz/nav2_default_view.rviz 
+
+## Move Prius
+
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r cmd_vel:=/prius/cmd_vel
+
+
 
 ## Save the Map
 

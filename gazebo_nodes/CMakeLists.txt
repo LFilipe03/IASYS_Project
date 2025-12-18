@@ -20,6 +20,9 @@ find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(gazebo_ros REQUIRED)
+find_package(rclpy REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 # ament_python_install_package(${PROJECT_NAME})
 
@@ -34,6 +37,13 @@ if(BUILD_TESTING)
   #set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+install(
+  PROGRAMS
+    src/odomrelay.py
+    src/controller.py
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 install(
   DIRECTORY worlds models

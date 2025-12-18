@@ -36,7 +36,7 @@ def generate_launch_description():
             }]
         ),
         
-
+    
         Node(
             package='tf2_ros',
             executable='static_transform_publisher',
@@ -45,7 +45,7 @@ def generate_launch_description():
             arguments=['3.55', '0', '0.3', '0', '0', '0', 'prius/base_link', 'center_laser_link'],
             parameters=[{'use_sim_time': True}]
         ),
-
+    
         # Spawn Prius vehicle in Gazebo
         ExecuteProcess(
             cmd=['ros2', 'run', 'gazebo_ros', 'spawn_entity.py',

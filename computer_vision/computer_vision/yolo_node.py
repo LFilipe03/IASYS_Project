@@ -122,7 +122,8 @@ class GesturePublisherNode(Node):
 
         # Log change for debugging
         if detected_command != "WAITING":
-            self.get_logger().info(f'Command: {detected_command}')
+            #self.get_logger().info(f'Command: {detected_command}')
+            print(f'Command: {detected_command}')
 
 def main(args=None):
     rclpy.init(args=args)

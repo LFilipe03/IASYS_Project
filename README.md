@@ -25,7 +25,11 @@ ros2 run gazebo_nodes controller.py
 
 ros2 run gazebo_nodes beacon.py
 
-Run the Yolo Node
+ros2 run computer_vision yolo_node
+
+
+## ------------------------------------
+
 
 ros2 topic pub /atc/perception std_msgs/msg/String "{data: STOP}"       <- For Testing the commands given by the Traffic Controller
 

@@ -8,6 +8,7 @@ sudo apt install ros-foxy-gazebo-*
 sudo apt install ros-foxy-nav2*
 sudo apt install ros-foxy-rosidl*
 sudo apt install ros-foxy-slam*
+pip install ultralytics
 
 ## Running the example
 
@@ -24,6 +25,8 @@ ros2 launch iasys_scenarios spawn_prius.py
 ros2 run gazebo_nodes controller.py 
 
 ros2 run gazebo_nodes beacon.py
+
+ros2 run computer_vision camera_sensor
 
 ros2 run computer_vision yolo_node
 

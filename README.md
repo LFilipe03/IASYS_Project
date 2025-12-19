@@ -18,8 +18,11 @@ ros2 launch iasys_scenarios scenario_roadblock_vehicle.launch.py
 
 ros2 launch iasys_scenarios spawn_prius.py
 
-ros2 topic pub /atc/perception std_msgs/msg/String "{data: STOP}"
+ros2 run gazebo_nodes controller.py 
 
+ros2 topic pub /atc/perception std_msgs/msg/String "{data: STOP}"       <- For Testing the commands given by the Traffic Controller
+
+ros2 topic pub /atc/perception std_msgs/msg/String "{data: ADVANCE}"
 
 
 ## Mapping World with Prius

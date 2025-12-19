@@ -5,6 +5,9 @@
 ROS2-Foxy, Gazebo 11, Yolov8
 
 sudo apt install ros-foxy-gazebo-*
+sudo apt install ros-foxy-nav2*
+sudo apt install ros-foxy-rosidl*
+sudo apt install ros-foxy-slam*
 
 ## Running the example
 
@@ -20,9 +23,11 @@ ros2 launch iasys_scenarios spawn_prius.py
 
 ros2 run gazebo_nodes controller.py 
 
-ros2 topic pub /atc/perception std_msgs/msg/String "{data: STOP}"       <- For Testing the commands given by the Traffic Controller
+ros2 run gazebo_nodes beacon.py
 
-ros2 topic pub /atc/perception std_msgs/msg/String "{data: ADVANCE}"
+Run the Yolo Node
+
+ros2 topic pub /atc/perception std_msgs/msg/String "{data: STOP}"       <- For Testing the commands given by the Traffic Controller
 
 
 ## Mapping World with Prius
@@ -33,16 +38,10 @@ ros2 launch slam_toolbox online_async_launch.py use_sim_time:=True
 
 rviz2 -d nav2_bringup/bringup/rviz/nav2_default_view.rviz 
 
-## Move Prius
-
-ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r cmd_vel:=/prius/cmd_vel
-
-
-
 ## Save the Map
 
 ros2 run nav2_map_server map_saver_cli -f ~/map
 
+## Move Prius with Keyboard
 
-# Make Prius Move
-ros2 topic pub /cmd_vel geometry_msgs/msg/Twist '{ "linear": { "x": 1.0,"y": 0.0, "z": 0.0 }, "angular": { "x": 0.0, "y": 0.0, "z": 0.0 } }'
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r cmd_vel:=/prius/cmd_vel

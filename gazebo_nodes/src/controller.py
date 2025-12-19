@@ -16,7 +16,7 @@ from etsi_its_msgs.msg import (
     RelevanceTrafficDirection,
     StationType
 )
-
+from sensor_msgs.msg import LaserScan
 import math
 
 
@@ -48,6 +48,12 @@ class Controller(Node):
             self.warning_cb,
             10)
 
+        self.scan_sub = self.create_subscription(
+            LaserScan,
+            '/prius/base_scan',
+            self.scan_cb,
+            10)
+
 
         # State
         self.state = self.DRIVE
@@ -57,7 +63,7 @@ class Controller(Node):
         self.current_yaw = 0.0
 
         self.kp = 2.5
-        self.speed = 14.0  # m/s
+        self.speed = 14.0  # close to 50 m/s
 
         self.timer = self.create_timer(0.05, self.control_loop)
 
@@ -69,6 +75,8 @@ class Controller(Node):
         self.right_yaw_offset = -0.01   # counter-steer
 
         self.initial_yaw = None
+
+        self.latest_scan = None
 
         self.get_logger().info('Controller node started.')
 
@@ -95,6 +103,19 @@ class Controller(Node):
                 self.state = self.GO_LEFT
                 self.lane_change_start_time = self.get_clock().now()
                 self.initial_yaw = self.current_yaw
+
+            if cmd == 'GO_RIGHT':
+                if not self.right_side_is_clear():
+                    self.get_logger().warn(
+                        'GO_RIGHT rejected: obstacle detected on the right'
+                    )
+                    return
+
+                self.get_logger().info('GO_RIGHT accepted')
+                self.state = self.GO_RIGHT
+                self.lane_change_start_time = self.get_clock().now()
+                self.initial_yaw = self.current_yaw
+
 
     # ---------- IMU callback ----------
     def imu_cb(self, msg):
@@ -129,9 +150,30 @@ class Controller(Node):
             )
             self.state = self.ROADWORK_DRIVE
 
+    def scan_cb(self, msg: LaserScan):
+        self.latest_scan = msg
+
+
     # ---------- Control ----------
     def publish_stop(self):
         self.cmd_pub.publish(Twist())
+
+        
+    def right_side_is_clear(self, min_dist=4.0) -> bool:
+        if self.latest_scan is None:
+            return False  # fail-safe
+
+        scan = self.latest_scan
+
+        angle = scan.angle_min
+        for r in scan.ranges:
+            # Right side sector (-60° to -15°)
+            if -1.05 <= angle <= -0.26:
+                if r < min_dist:
+                    return False
+            angle += scan.angle_increment
+        
+        return True
 
     def control_loop(self):
         if self.state == self.STOPPED:
@@ -162,6 +204,27 @@ class Controller(Node):
                 self.target_yaw = self.initial_yaw
                 return
 
+
+        if self.state == self.GO_RIGHT:
+            now = self.get_clock().now()
+            elapsed = (now - self.lane_change_start_time).nanoseconds * 1e-9
+            self.speed = 10.0
+
+            # Phase 1: steer right
+            if elapsed < self.phase1_time:
+                self.target_yaw = self.initial_yaw - self.left_yaw_offset
+
+            # Phase 2: counter-steer left to straighten
+            elif elapsed < self.lane_change_duration:
+                self.target_yaw = self.initial_yaw - self.right_yaw_offset
+
+            # Finish maneuver
+            else:
+                self.get_logger().info('GO_RIGHT completed, car straightened')
+                self.state = self.DRIVE
+                self.target_yaw = self.initial_yaw
+
+
         if self.state == self.ROADWORK_DRIVE:
             self.speed = 5.0
 
@@ -173,7 +236,9 @@ class Controller(Node):
         twist.angular.z = self.kp * error
 
         self.cmd_pub.publish(twist)
+    
 
+    
 def main():
     rclpy.init()
     node = Controller()

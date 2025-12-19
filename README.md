@@ -18,6 +18,9 @@ ros2 launch iasys_scenarios scenario_roadblock_vehicle.launch.py
 
 ros2 launch iasys_scenarios spawn_prius.py
 
+ros2 topic pub /atc/perception std_msgs/msg/String "{data: STOP}"
+
+
 
 ## Mapping World with Prius
 

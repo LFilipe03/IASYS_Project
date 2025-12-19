@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(nav2_bringup)
 
-cmake_policy(SET CMP0148 OLD)
 
 find_package(ament_cmake REQUIRED)
 find_package(nav2_common REQUIRED)

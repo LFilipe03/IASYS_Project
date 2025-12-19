@@ -76,23 +76,25 @@ class Controller(Node):
     def perception_cb(self, msg):
         cmd = msg.data.strip().upper()
 
-        if cmd == 'STOP':
-            if self.state != self.STOPPED:
-                self.get_logger().warn('STOP received from perception!')
-            self.state = self.STOPPED
-            self.publish_stop()
+        if self.state != self.DRIVE:
 
-        if cmd == 'GO_LEFT' and self.state == self.GO_LEFT: 
-            now = self.get_clock().now()
-            elapsed = (now - self.lane_change_start_time).nanoseconds * 1e-9
-            self.get_logger().info(f'Doing GO_LEFT Maneuver (elapsed: {elapsed:.2f} seconds)')
-            return
-        
-        if cmd == 'GO_LEFT':
-            self.get_logger().info('GO_LEFT')
-            self.state = self.GO_LEFT
-            self.lane_change_start_time = self.get_clock().now()
-            self.initial_yaw = self.current_yaw
+            if cmd == 'STOP':
+                if self.state != self.STOPPED:
+                    self.get_logger().warn('STOP received from perception!')
+                self.state = self.STOPPED
+                self.publish_stop()
+
+            if cmd == 'GO_LEFT' and self.state == self.GO_LEFT: 
+                now = self.get_clock().now()
+                elapsed = (now - self.lane_change_start_time).nanoseconds * 1e-9
+                self.get_logger().info(f'Doing GO_LEFT Maneuver (elapsed: {elapsed:.2f} seconds)')
+                return
+            
+            if cmd == 'GO_LEFT':
+                self.get_logger().info('GO_LEFT')
+                self.state = self.GO_LEFT
+                self.lane_change_start_time = self.get_clock().now()
+                self.initial_yaw = self.current_yaw
 
     # ---------- IMU callback ----------
     def imu_cb(self, msg):

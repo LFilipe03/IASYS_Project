@@ -43,6 +43,7 @@ install(
   PROGRAMS
     src/odomrelay.py
     src/controller.py
+    src/beacon.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
